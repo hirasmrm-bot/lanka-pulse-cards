@@ -10,10 +10,10 @@ THEME BY PLACE TYPE (replace every {{token}}):
   ocean: bottom=#0B4F55, top=#EEF6F3, ink=#0B3B3F, skyT=#BFE3DD, skyB=#F7E9CC, hillF=#6FA8A0, hillN=#2F6F6B, sea=#1E7F86, wave=#CDEFEA, sand=#F2D49A, palm=#0B3B3F, stupa=#FFFFFF, line=#F5C518
   tea: bottom=#1E4D36, top=#F1F4E8, ink=#173A29, skyT=#D5E8C2, skyB=#FBF0D2, hillF=#8DB574, hillN=#3E7B4B, sea=#5E9C86, wave=#DDF0E2, sand=#E9D29A, palm=#173A29, stupa=#FFFFFF, line=#F5C518
   sunset: bottom=#5A1F35, top=#FCEFE4, ink=#3A1424, skyT=#F4A07E, skyB=#FCE4B6, hillF=#CF7A6E, hillN=#8E3B4B, sea=#6E2A44, wave=#F8BFA2, sand=#F3C98C, palm=#3A1424, stupa=#FFF4E6, line=#F5C518
-  gold=#F5C518 always. DELETE THIS COMMENT FIRST, then replace {{SCENE}} with an original natural-style SVG picture of the place (1080x600 viewBox): sunset/daylight sky gradient, soft clouds (feTurbulence), the place's main landmark with shading/texture, water or hills, dark silhouettes (palms, trees), light vignette. See templates/scenes/galle-fort.svg for the approved example (3 Nov 2026). Keep the logo, the see-through flag (drawn on top of the scene) and the gold line. -->
-<div style="width: 1080px; height: 1350px; display: flex; flex-direction: column; background: {{bottom}}; font-family: Inter, system-ui, sans-serif">
-<div style="height: 600px; position: relative; background: {{top}}; overflow: hidden">
-<svg width="1080" height="600" viewBox="0 0 1080 600" style="position:absolute;left:0;top:0" aria-hidden="true">
+  gold=#F5C518 always. DELETE THIS COMMENT FIRST, then replace {{SCENE}} with an original natural-style SVG picture of the place (1080x600 viewBox; the card shows it 500 px tall, so about 50 px at the top and bottom are cut off – keep important things away from the very top and bottom edges): sunset/daylight sky gradient, soft clouds (feTurbulence), the place's main landmark with shading/texture, water or hills, dark silhouettes (palms, trees), light vignette. See templates/scenes/galle-fort.svg for the approved example (3 Nov 2026). Keep the logo, the see-through flag (drawn on top of the scene) and the gold line. -->
+<div style="width: 1080px; height: 1080px; display: flex; flex-direction: column; background: {{bottom}}; font-family: Inter, system-ui, sans-serif">
+<div style="height: 500px; position: relative; background: {{top}}; overflow: hidden">
+<svg width="1080" height="500" viewBox="0 0 1080 600" preserveAspectRatio="xMidYMid slice" style="position:absolute;left:0;top:0" aria-hidden="true">
 <defs>
 <symbol id="lkflag" viewBox="0 0 640 480">
   <path fill="#ffb700" d="M0 0h640v480H0z"/>
@@ -56,13 +56,13 @@ THEME BY PLACE TYPE (replace every {{token}}):
 
 <div style="height: 10px; background: {{line}}"></div>
 
-<div style="flex-grow: 1; box-sizing: border-box; padding: 44px 64px 44px; display: flex; flex-direction: column; gap: 22px">
+<div style="flex-grow: 1; box-sizing: border-box; padding: 30px 64px 30px; display: flex; flex-direction: column; gap: 14px">
 <span style="align-self: flex-start; background: {{gold}}; color: {{ink}}; font-weight: 800; font-size: 22px; letter-spacing: 0.16em; padding: 10px 20px; border-radius: 6px">TRAVEL · [BEACH]</span>
 <div style="display: flex; flex-direction: column; gap: 6px">
-<h1 style="margin: 0; font-family: Archivo, sans-serif; font-weight: 900; font-size: 84px; line-height: 1; text-transform: uppercase; color: #FFFFFF">[Place <span style="color: {{gold}}">name]</span></h1>
+<h1 style="margin: 0; font-family: Archivo, sans-serif; font-weight: 900; font-size: 70px; line-height: 1; text-transform: uppercase; color: #FFFFFF">[Place <span style="color: {{gold}}">name]</span></h1>
 <span style="font-size: 26px; font-weight: 600; color: rgba(255,255,255,0.78)">[District] · [Province]</span>
 </div>
-<div style="display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; flex-direction: column; gap: 8px">
 <span style="font-size: 20px; font-weight: 700; letter-spacing: 0.16em; color: {{gold}}">THINGS TO ENJOY</span>
 <div style="display: flex; align-items: center; gap: 16px"><span style="width: 36px; height: 36px; border-radius: 50%; background: {{gold}}; color: {{ink}}; font-family: Archivo, sans-serif; font-weight: 900; font-size: 20px; display: flex; align-items: center; justify-content: center">1</span><span style="font-size: 30px; font-weight: 600; color: #FFFFFF">[Thing to do]</span></div>
 <div style="display: flex; align-items: center; gap: 16px"><span style="width: 36px; height: 36px; border-radius: 50%; background: {{gold}}; color: {{ink}}; font-family: Archivo, sans-serif; font-weight: 900; font-size: 20px; display: flex; align-items: center; justify-content: center">2</span><span style="font-size: 30px; font-weight: 600; color: #FFFFFF">[Thing to do]</span></div>
@@ -72,7 +72,7 @@ THEME BY PLACE TYPE (replace every {{token}}):
 <div style="flex: 1 1 0; display: flex; flex-direction: column; gap: 4px; background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.16); border-radius: 12px; padding: 14px 20px"><span style="font-size: 18px; font-weight: 700; color: rgba(255,255,255,0.78)">Best time to visit</span><span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 30px; color: #FFFFFF">[Month – Month]</span></div>
 <div style="flex: 1 1 0; display: flex; flex-direction: column; gap: 4px; background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.16); border-radius: 12px; padding: 14px 20px"><span style="font-size: 18px; font-weight: 700; color: rgba(255,255,255,0.78)">From Colombo</span><span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 30px; color: #FFFFFF">[about 0 hrs by road]</span></div>
 </div>
-<div style="margin-top: auto; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.18); padding-top: 22px">
+<div style="margin-top: auto; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.18); padding-top: 16px">
 <span style="font-size: 22px; color: rgba(255,255,255,0.78)">Source: <span style="color: #FFFFFF; font-weight: 600">[Sri Lanka Tourism]</span></span>
 <span style="font-size: 22px; color: rgba(255,255,255,0.78)">Save this for your next trip</span>
 </div>
