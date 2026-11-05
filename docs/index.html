@@ -103,7 +103,7 @@ const RAW='https://raw.githubusercontent.com/'+REPO+'/main/cards/';
 const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 function cat(slug){
   if(/gold/.test(slug)) return 'Gold';
-  if(/cse|aspi|market|earnings|stock|share|q[1-4]|2q|results-(?!us)/.test(slug) && !/^us-/.test(slug)) return 'Market';
+  if(/cse|aspi|market|earnings|stock|share/.test(slug) && !/^us-/.test(slug)) return 'Market';
   if(/travel|tourism/.test(slug)) return 'Travel';
   if(/^us-|world|election|midterm/.test(slug)) return 'World';
   return 'News';
