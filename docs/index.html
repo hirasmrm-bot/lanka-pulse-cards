@@ -41,10 +41,14 @@ let items=[],filt='All';const LBL={News:'Sri Lanka',Market:'Market',Gold:'Gold',
 function card(x,big){return `<button class="card${big?' big':''}" data-src="${x.src}"><div class="ph"><img loading="lazy" src="${x.src}" alt="${x.ti}"></div><div class="meta"><span class="chip c-${x.c}">${LBL[x.c]}</span><h3>${x.ti}</h3><span class="when">${x.d} · ${x.t} SL time</span></div></button>`}
 function render(){const L=items.filter(x=>filt==='All'||x.c===filt);const f=document.getElementById('feat'),g=document.getElementById('grid');
 if(!L.length){f.innerHTML='';g.innerHTML='<p class="empty">No posts here yet.</p>';return}
-let top=L.find(x=>x.c==='Market')||L[0];let rest=L.filter(x=>x!==top);
-f.innerHTML=card(top,1)+'<div class="side">'+rest.slice(0,3).map(x=>card(x)).join('')+'</div>';
+let top,sideL;if(filt==='All'){top=L.find(x=>/cse-close/.test(x.n))||L.find(x=>x.c==='Market')||L[0];
+const brk=L.find(x=>x!==top&&/breaking/.test(x.n)&&x.c==='Market');const gld=L.find(x=>x!==top&&x.c==='Gold');
+sideL=[brk,gld].filter(Boolean);for(const x of L){if(sideL.length>=(window.SIDEN||3))break;if(x!==top&&!sideL.includes(x)&&x.c!=='Market')sideL.push(x)}}
+else{top=L[0];sideL=L.slice(1,4)}
+let rest=L.filter(x=>x!==top&&!sideL.includes(x));
+f.innerHTML=card(top,1)+'<div class="side">'+sideL.map(x=>card(x)).join('')+'</div>';
 const mk=filt==='All'?rest.filter(x=>x.c==='Market').slice(0,4):[];document.getElementById('mkt').innerHTML=mk.length?'<h2 class="sec">Stock <span>market</span></h2><div class="grid">'+mk.map(x=>card(x)).join('')+'</div>':'';
-const used=new Set([top,...rest.slice(0,3),...mk]);g.innerHTML=L.filter(x=>!used.has(x)).slice(0,40).map(x=>card(x)).join('')}
+const used=new Set([top,...sideL,...mk]);g.innerHTML=L.filter(x=>!used.has(x)).slice(0,40).map(x=>card(x)).join('')}
 fetch('https://api.github.com/repos/'+REPO+'/contents/cards').then(r=>r.json()).then(d=>{items=d.map(f=>parse(f.name)).filter(Boolean).sort((a,b)=>b.k.localeCompare(a.k));render()}).catch(()=>{document.getElementById('grid').innerHTML='<p class="empty">Could not load posts. See them on <a href="https://www.facebook.com/LankaXpress">Facebook</a>.</p>'});
 document.querySelectorAll('.filters button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.filters button').forEach(o=>o.setAttribute('aria-pressed',o===b));filt=b.dataset.f;render()});
 const lb=document.getElementById('lb'),li=document.getElementById('lbimg');document.body.addEventListener('click',e=>{const c=e.target.closest('.card');if(c){li.src=c.dataset.src;lb.classList.add('open')}});lb.addEventListener('click',e=>{if(e.target!==li)lb.classList.remove('open')});
