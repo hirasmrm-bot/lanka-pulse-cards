@@ -29,6 +29,11 @@ def card(d,out):
             hb=max(4,int(100*b/mx)); hs=max(4,int(100*s/mx))
             cols+=f'<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:10px"><div style="height:100px;display:flex;align-items:flex-end;gap:10px"><div style="width:34px;height:{hb}px;background:#22C55E;border-radius:6px 6px 0 0"></div><div style="width:34px;height:{hs}px;background:#F87171;border-radius:6px 6px 0 0"></div></div><div style="font-size:22px;font-weight:700;color:#C9D6EE">{n}</div></div>'
         chart=f'<div style="{box};padding:22px 32px"><div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:20px;font-weight:800;letter-spacing:.14em;color:#7FB2FF">DAY BY DAY</span><span style="font-size:20px;color:#C9D6EE"><b style="color:#22C55E">■</b> Buying &nbsp; <b style="color:#F87171">■</b> Selling</span></div><div style="display:flex;margin-top:14px">{cols}</div></div>'
+    big=not rows
+    P='44px 36px' if big else '22px 32px'
+    NS='62px' if big else '56px'
+    NN='104px' if big else '60px'
+    ND='flex-direction:column;align-items:flex-start;gap:6px' if big else 'justify-content:space-between;align-items:center'
     html=f'''<!doctype html><html><head><meta charset="utf-8"><style>@font-face{{font-family:Archivo;src:url(archivo-latin-800-normal.woff2);font-weight:800}}@font-face{{font-family:Archivo;src:url(archivo-latin-900-normal.woff2);font-weight:900}}body{{margin:0}}</style></head><body>
 <div style="width:1080px;height:1080px;box-sizing:border-box;padding:56px 64px 52px;background:radial-gradient(circle at 85% 8%,#1E4FA0 0%,rgba(30,79,160,0) 45%),linear-gradient(160deg,#0A2A5E 0%,#061A3D 55%,#030E24 100%);font-family:Inter,system-ui,sans-serif;color:#fff;display:flex;flex-direction:column;gap:20px;position:relative;overflow:hidden">
 <svg style="position:absolute;right:-40px;top:120px;opacity:.07" width="520" height="300" viewBox="0 0 520 300"><polyline points="0,250 80,210 150,230 230,150 300,175 380,90 450,110 520,30" fill="none" stroke="#9CC3FF" stroke-width="6"/></svg>
@@ -37,10 +42,10 @@ def card(d,out):
 <div style="font-family:Archivo,sans-serif;font-weight:900;font-size:80px;line-height:.95;letter-spacing:-.01em">CSE <span style="color:#7FB2FF">FOREIGN</span><br><span style="color:#7FB2FF">MONEY FLOW</span></div>
 <div style="font-size:28px;color:#C9D6EE">{d['sub']}</div>
 <div style="display:flex;gap:24px">
-<div style="flex:1;{box};padding:22px 32px"><div style="font-size:22px;font-weight:800;letter-spacing:.14em;color:#7FB2FF">FOREIGN BUYING</div><div style="font-family:Archivo;font-weight:900;font-size:56px;margin-top:8px">{fmt(d['buy'])}</div></div>
-<div style="flex:1;{box};padding:22px 32px"><div style="font-size:22px;font-weight:800;letter-spacing:.14em;color:#7FB2FF">FOREIGN SELLING</div><div style="font-family:Archivo;font-weight:900;font-size:56px;margin-top:8px">{fmt(d['sell'])}</div></div>
+<div style="flex:1;{box};padding:{P}"><div style="font-size:22px;font-weight:800;letter-spacing:.14em;color:#7FB2FF">FOREIGN BUYING</div><div style="font-family:Archivo;font-weight:900;font-size:{NS};white-space:nowrap;margin-top:8px">{fmt(d['buy'])}</div></div>
+<div style="flex:1;{box};padding:{P}"><div style="font-size:22px;font-weight:800;letter-spacing:.14em;color:#7FB2FF">FOREIGN SELLING</div><div style="font-family:Archivo;font-weight:900;font-size:{NS};white-space:nowrap;margin-top:8px">{fmt(d['sell'])}</div></div>
 </div>
-<div style="{box};padding:22px 32px;display:flex;justify-content:space-between;align-items:center;border-color:{netc}66"><div style="font-size:24px;font-weight:800;letter-spacing:.14em;color:#7FB2FF">{netl}</div><div style="font-family:Archivo;font-weight:900;font-size:60px;color:{netc}">{'▲' if up else '▼'} {fmt(abs(net))}</div></div>
+<div style="{box};padding:{P};display:flex;{ND};border-color:{netc}66"><div style="font-size:24px;font-weight:800;letter-spacing:.14em;color:#7FB2FF">{netl}</div><div style="font-family:Archivo;font-weight:900;font-size:{NN};white-space:nowrap;color:{netc}">{'▲' if up else '▼'} {fmt(abs(net))}</div></div>
 {rows}
 <div style="margin-top:auto;border-top:1px solid rgba(160,190,240,.25);padding-top:22px;display:flex;justify-content:space-between;font-size:21px;color:#B9C7E2"><span>Source: <b style="color:#fff">{d.get("src","Colombo Stock Exchange")}</b></span><span>Educational purposes only · Not investment advice</span></div>
 </div></body></html>'''
