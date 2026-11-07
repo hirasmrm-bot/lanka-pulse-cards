@@ -16,10 +16,10 @@ def card(d,out):
     netl=('NET FOREIGN BUYING' if up else 'NET FOREIGN SELLING')
     rows=''
     if d.get('topbuy') and d.get('topsell'):
-        def li(xs,c): return ''.join(f'<div style="display:flex;justify-content:space-between;font-size:26px;font-weight:700;padding:6px 0"><span>{n}</span><span style="color:{c}">{fmt(v)}</span></div>' for n,v in xs)
-        rows=f'''<div style="display:flex;gap:24px">
-<div style="flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(120,170,255,0.25);border-radius:22px;padding:22px 28px"><div style="font-size:20px;font-weight:800;letter-spacing:.14em;color:#7FB2FF">MOST BOUGHT</div>{li(d['topbuy'],'#22C55E')}</div>
-<div style="flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(120,170,255,0.25);border-radius:22px;padding:22px 28px"><div style="font-size:20px;font-weight:800;letter-spacing:.14em;color:#7FB2FF">MOST SOLD</div>{li(d['topsell'],'#F87171')}</div></div>'''
+        def li(xs,c,lab):
+            r=''.join(f'<div style="padding:10px 0;border-top:1px solid rgba(160,190,240,.18)"><div style="font-size:24px;font-weight:700;color:#E6EEFB;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{k+1}. {n}</div><div style="font-family:Archivo;font-weight:900;font-size:34px;color:{c};margin-top:2px">{fmt(v)}</div></div>' for k,(n,v) in enumerate(xs))
+            return f'<div style="flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(120,170,255,0.28);border-radius:26px;padding:20px 30px 12px"><div style="font-size:20px;font-weight:800;letter-spacing:.14em;color:#7FB2FF;padding-bottom:6px">{lab}</div>{r}</div>'
+        rows=f'<div style="display:flex;gap:20px">{li(d["topbuy"],"#22C55E","TOP 2 FOREIGN BUYS")}{li(d["topsell"],"#F87171","TOP 2 FOREIGN SALES")}</div>'
     box='background:rgba(255,255,255,0.06);border:1px solid rgba(120,170,255,0.28);border-radius:26px;box-shadow:inset 0 1px 0 rgba(255,255,255,0.08)'
     chart=''
     if d.get('days') and not rows:
@@ -41,8 +41,8 @@ def card(d,out):
 <div style="flex:1;{box};padding:22px 32px"><div style="font-size:22px;font-weight:800;letter-spacing:.14em;color:#7FB2FF">FOREIGN SELLING</div><div style="font-family:Archivo;font-weight:900;font-size:56px;margin-top:8px">{fmt(d['sell'])}</div></div>
 </div>
 <div style="{box};padding:22px 32px;display:flex;justify-content:space-between;align-items:center;border-color:{netc}66"><div style="font-size:24px;font-weight:800;letter-spacing:.14em;color:#7FB2FF">{netl}</div><div style="font-family:Archivo;font-weight:900;font-size:60px;color:{netc}">{'▲' if up else '▼'} {fmt(abs(net))}</div></div>
-{rows}{chart}
-<div style="margin-top:auto;border-top:1px solid rgba(160,190,240,.25);padding-top:22px;display:flex;justify-content:space-between;font-size:21px;color:#B9C7E2"><span>Source: <b style="color:#fff">Colombo Stock Exchange</b></span><span>Educational purposes only · Not investment advice</span></div>
+{rows}
+<div style="margin-top:auto;border-top:1px solid rgba(160,190,240,.25);padding-top:22px;display:flex;justify-content:space-between;font-size:21px;color:#B9C7E2"><span>Source: <b style="color:#fff">{d.get("src","Colombo Stock Exchange")}</b></span><span>Educational purposes only · Not investment advice</span></div>
 </div></body></html>'''
     html=html.replace('–',' to ').replace('—',', ')
     open('_r.html','w').write(html)
