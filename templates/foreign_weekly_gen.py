@@ -1,7 +1,11 @@
-import re,subprocess,sys,json
+import re,subprocess,sys,json,os
 from PIL import Image
+# Header: LankaXpress logo left, date right. Uses the old scratchpad gold.html if present,
+# otherwise templates/news/header.html from this repo.
 S='/tmp/claude-0/-home-claude/738bfcb9-4b9a-51c8-92f0-b5f79f9acda1/scratchpad/'
-t=open(S+'sq/gold.html').read()
+_here=os.path.dirname(os.path.abspath(__file__))
+_src=S+'sq/gold.html' if os.path.exists(S+'sq/gold.html') else os.path.join(_here,'news','header.html')
+t=open(_src).read()
 i=t.find('<div style="display: flex; justify-content: space-between; align-items: center">')
 j=t.find('</span>',t.find('NOV 2026',i))+len('</span>\n</div>')
 header=t[i:j]
@@ -51,7 +55,7 @@ def card(d,out):
 </div></body></html>'''
     html=html.replace('–',' to ').replace('—',', ')
     open('_r.html','w').write(html)
-    subprocess.run(['google-chrome','--headless','--no-sandbox','--disable-gpu','--hide-scrollbars','--force-device-scale-factor=1.8963','--window-size=1080,1080','--screenshot=_r.png','file://'+S+'fw/_r.html'],stderr=subprocess.DEVNULL,stdout=subprocess.DEVNULL)
+    subprocess.run(['google-chrome','--headless','--no-sandbox','--disable-gpu','--hide-scrollbars','--force-device-scale-factor=1.8963','--window-size=1080,1080','--screenshot=_r.png','file://'+os.path.abspath('_r.html')],stderr=subprocess.DEVNULL,stdout=subprocess.DEVNULL)
     Image.open('_r.png').convert('RGB').save(out,quality=100,subsampling=0)
 if __name__=='__main__':
     card(json.loads(open(sys.argv[1]).read()),sys.argv[2])
